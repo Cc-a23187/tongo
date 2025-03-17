@@ -112,6 +112,8 @@ func newWallet(key ed25519.PublicKey, version Version, options Options) (wallet,
 		return NewWalletV5Beta(version, key, options), nil
 	case V5R1:
 		return NewWalletV5R1(key, options), nil
+	case V5R1FixId:
+		return NewWalletV5R1FixedWalletId(key, options), nil
 	case HighLoadV2R2:
 		return newWalletHighloadV2(version, key, options), nil
 	default:

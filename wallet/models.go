@@ -30,6 +30,7 @@ const (
 	HighLoadV2
 	HighLoadV2R1
 	HighLoadV2R2
+	V5R1FixId
 	// TODO: maybe add lockup wallet
 )
 
