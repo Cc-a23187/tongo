@@ -114,6 +114,49 @@ func TestNewWalletV5R1(t *testing.T) {
 	}
 }
 
+func TestNewWalletV5R1FixedWalletId(t *testing.T) {
+	tests := []struct {
+		name string
+		opts []Option
+		want *walletV5R1
+	}{
+		{
+			name: "workchain 0, testnet",
+			opts: []Option{
+				WithWorkchain(0),
+				WithNetworkGlobalID(TestnetGlobalID),
+			},
+			want: &walletV5R1{
+				workchain: 0,
+				walletID:  100,
+			},
+		},
+		{
+			name: "workchain 0, mainnet",
+			opts: []Option{
+				WithWorkchain(0),
+				WithNetworkGlobalID(MainnetGlobalID),
+			},
+			want: &walletV5R1{
+				workchain: 0,
+				walletID:  100,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+
+			wallet := NewWalletV5R1FixedWalletId(nil, applyOptions(tt.opts...))
+			if wallet.walletID != tt.want.walletID {
+				t.Errorf("NewWalletV5R1() = %v, want %v", wallet.walletID, tt.want.walletID)
+			}
+			if wallet.workchain != tt.want.workchain {
+				t.Errorf("NewWalletV5R1() = %v, want %v", wallet.workchain, tt.want.workchain)
+			}
+		})
+	}
+}
+
 func Test_walletV5R1_generateAddress(t *testing.T) {
 	tests := []struct {
 		name       string

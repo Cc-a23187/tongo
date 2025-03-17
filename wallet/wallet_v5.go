@@ -46,6 +46,17 @@ func genContextID(workchain uint32) uint32 {
 	return uint32(cid)
 }
 
+func NewWalletV5R1FixedWalletId(publicKey ed25519.PublicKey, opts Options) *walletV5R1 {
+	workchain := defaultOr(opts.Workchain, 0)
+
+	return &walletV5R1{
+		publicKey:          publicKey,
+		workchain:          workchain,
+		walletID:           100,
+		isSignatureAllowed: true,
+	}
+}
+
 func NewWalletV5R1(publicKey ed25519.PublicKey, opts Options) *walletV5R1 {
 	workchain := defaultOr(opts.Workchain, 0)
 	networkGlobalID := int64(defaultOr[int32](opts.NetworkGlobalID, MainnetGlobalID))
